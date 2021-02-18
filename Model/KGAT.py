@@ -4,7 +4,11 @@ Tensorflow Implementation of Knowledge Graph Attention Network (KGAT) model in:
 Wang Xiang et al. KGAT: Knowledge Graph Attention Network for Recommendation. In KDD 2019.
 @author: Xiang Wang (xiangwang@u.nus.edu)
 '''
-import tensorflow as tf
+# import tensorflow as tf    # Changed by GTL
+import tensorflow.compat.v1 as tf   # Changed by GTL
+tf.disable_v2_behavior()            # Changed by GTL
+import tensorflow as tf2            # Changed by GTL for GlorotUniform
+
 import os
 import numpy as np
 import scipy.sparse as sp
@@ -95,27 +99,29 @@ class KGAT(object):
 
     def _build_inputs(self):
         # placeholder definition
-        self.users = tf.placeholder(tf.int32, shape=(None,))
-        self.pos_items = tf.placeholder(tf.int32, shape=(None,))
-        self.neg_items = tf.placeholder(tf.int32, shape=(None,))
+        self.users = tf.compat.v1.placeholder(tf.int32, shape=(None,))         # Changed by GTL all tf.placehold add compat.v1 in btw
+        self.pos_items = tf.compat.v1.placeholder(tf.int32, shape=(None,))
+        self.neg_items = tf.compat.v1.placeholder(tf.int32, shape=(None,))
 
         # for knowledge graph modeling (TransD)
-        self.A_values = tf.placeholder(tf.float32, shape=[len(self.all_v_list)], name='A_values')
+        self.A_values = tf.compat.v1.placeholder(tf.float32, shape=[len(self.all_v_list)], name='A_values')
 
-        self.h = tf.placeholder(tf.int32, shape=[None], name='h')
-        self.r = tf.placeholder(tf.int32, shape=[None], name='r')
-        self.pos_t = tf.placeholder(tf.int32, shape=[None], name='pos_t')
-        self.neg_t = tf.placeholder(tf.int32, shape=[None], name='neg_t')
+        self.h = tf.compat.v1.placeholder(tf.int32, shape=[None], name='h')
+        self.r = tf.compat.v1.placeholder(tf.int32, shape=[None], name='r')
+        self.pos_t = tf.compat.v1.placeholder(tf.int32, shape=[None], name='pos_t')
+        self.neg_t = tf.compat.v1.placeholder(tf.int32, shape=[None], name='neg_t')
 
         # dropout: node dropout (adopted on the ego-networks);
         # message dropout (adopted on the convolution operations).
-        self.node_dropout = tf.placeholder(tf.float32, shape=[None])
-        self.mess_dropout = tf.placeholder(tf.float32, shape=[None])
+        self.node_dropout = tf.compat.v1.placeholder(tf.float32, shape=[None])
+        self.mess_dropout = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
     def _build_weights(self):
         all_weights = dict()
 
-        initializer = tf.contrib.layers.xavier_initializer()
+#         initializer = tf.contrib.layers.xavier_initializer()   # Changed by GTL
+        initializer = tf2.initializers.GlorotUniform()          # Changed by GTL
+        
 
         if self.pretrain_data is None:
             all_weights['user_embed'] = tf.Variable(initializer([self.n_users, self.emb_dim]), name='user_embed')

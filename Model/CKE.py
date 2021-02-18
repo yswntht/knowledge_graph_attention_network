@@ -4,7 +4,10 @@ Tensorflow Implementation of the Baseline Model, CKE, in:
 Wang Xiang et al. KGAT: Knowledge Graph Attention Network for Recommendation. In KDD 2019.
 @author: Xiang Wang (xiangwang@u.nus.edu)
 '''
-import tensorflow as tf
+# import tensorflow as tf    # Changed by GTL
+import tensorflow.compat.v1 as tf   # Changed by GTL
+tf.disable_v2_behavior()            # Changed by GTL
+
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
