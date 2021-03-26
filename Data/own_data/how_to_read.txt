@@ -1,0 +1,12 @@
+train.txt and test.txt
+
+<userId1> <itemId1> <itemId2> ...
+<userId2> <itemId1> <itemId2> ...
+
+
+
+
+kg_final.txt
+<entity1> <relationship> <entity2>
+<entity3> <relationship> <entity4>
+...
