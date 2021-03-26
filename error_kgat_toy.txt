@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "Main.py", line 98, in <module>
+    model = KGAT(data_config=config, pretrain_data=pretrain_data, args=args)
+  File "E:\github\knowledge_graph_attention_network\model\KGAT.py", line 41, in __init__
+    self._build_model_phase_I()
+  File "E:\github\knowledge_graph_attention_network\model\KGAT.py", line 170, in _build_model_phase_I
+    self.ua_embeddings, self.ea_embeddings = self._create_bi_interaction_embed()
+  File "E:\github\knowledge_graph_attention_network\model\KGAT.py", line 278, in _create_bi_interaction_embed
+    temp_embed.append(tf.sparse_tensor_dense_matmul(A_fold_hat[f], ego_embeddings))
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\ops\sparse_ops.py", line 2533, in sparse_tensor_dense_matmul
+    return gen_sparse_ops.sparse_tensor_dense_mat_mul(
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\ops\gen_sparse_ops.py", line 3089, in sparse_tensor_dense_mat_mu
+l
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\framework\op_def_library.py", line 742, in _apply_op_helper
+    op = g._create_op_internal(op_type_name, inputs, dtypes=None,
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\framework\ops.py", line 3477, in _create_op_internal
+    ret = Operation(
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\framework\ops.py", line 1974, in __init__
+    self._c_op = _create_c_op(self._graph, node_def, inputs,
+  File "C:\ProgramData\Anaconda3\lib\site-packages\tensorflow\python\framework\ops.py", line 1815, in _create_c_op
+    raise ValueError(str(e))
+ValueError: Dimensions must be equal, but are 45777 and 91620 for '{{node SparseTensorDenseMatMul/SparseTensorDenseMatMul}} = SparseT
+ensorDenseMatMul[T=DT_FLOAT, Tindices=DT_INT64, adjoint_a=false, adjoint_b=false](SparseTensor/indices, SparseTensor/values, SparseTe
+nsor/dense_shape, concat_1)' with input shapes: [3615,2], [3615], [2], [91620,64] and with input tensors computed as partial shapes:
+input[2] = [457,45777].
+PS E:\github\knowledge_graph_attention_network\model>

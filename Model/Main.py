@@ -18,7 +18,7 @@ from CFKG import CFKG
 from NFM import NFM
 from KGAT import KGAT
 
-from IPython.core.debugger import set_trace
+# from IPython.core.debugger import set_trace
 
 
 import os
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     tf.set_random_seed(2019)
     np.random.seed(2019)
     args = parse_args()
-    set_trace()  #GTL
+#     set_trace()  #GTL
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
 
