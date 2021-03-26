@@ -13,7 +13,7 @@ import os
 import numpy as np
 import scipy.sparse as sp
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
-from IPython.core.debugger import set_trace
+# from IPython.core.debugger import set_trace
 
 class KGAT(object):
     def __init__(self, data_config, pretrain_data, args):
@@ -274,7 +274,7 @@ class KGAT(object):
             # A_hat_drop = tf.nn.dropout(A_hat, 1 - self.node_dropout[k], [self.n_users + self.n_items, 1])
             temp_embed = []
             for f in range(self.n_fold):
-                set_trace()  # GTL
+#                 set_trace()  # GTL
                 temp_embed.append(tf.sparse_tensor_dense_matmul(A_fold_hat[f], ego_embeddings))
 
             # sum messages of neighbors.
