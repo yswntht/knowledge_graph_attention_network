@@ -1,0 +1,38 @@
+Following can run:
+(i.e. if missing 45063 from both train and test set is ok to run)
+Train
+ 45536 [45063]
+Test
+ 45537 [    1    15    25 ... 44785 44855 45063]
+
+
+
+This cannot run
+(i.e. missing the last item index 45537)
+Train
+ 45536 [45063]
+Test
+ 45536 [    1    15    25 ... 44785 44855 45063]
+
+
+This can run
+(i.e. replace item index 45537 to train set (from test))
+Train
+ 45537 [45063]
+Test
+ 45536 [    1    15    25 ... 44785 44855 45063]
+
+Removing all files from yelp2018, except the train, test and kg_final
+Can Run
+
+Checking on kg_final, confirmed that for all entities
+(i.e. with index > 45537), all indexes are not empty as they appear either in [:,0] or [:,2] of kg_final
+for completeness kg_final[:,1] is the relation. 
+
+
+to kg_final.txt, updated all indexes after 45537 such that all -1 offset
+however, still face error
+digging through codes, not see any hardcoded 45537
+only possible suspect is the pretrained model
+
+removed the pretrained model, seems to work, even without changing any offset on kg_final
