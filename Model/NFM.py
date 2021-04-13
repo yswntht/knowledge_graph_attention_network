@@ -8,6 +8,7 @@ Wang Xiang et al. KGAT: Knowledge Graph Attention Network for Recommendation. In
 # import tensorflow as tf    # Changed by GTL
 import tensorflow.compat.v1 as tf   # Changed by GTL
 tf.disable_v2_behavior()            # Changed by GTL
+import tensorflow as tf2 
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
@@ -55,15 +56,15 @@ class NFM(object):
         self.verbose = args.verbose
 
     def _build_inputs(self):
-        self.pos_indices = tf.placeholder(tf.int64, shape=[None, 2], name='pos_indices')
-        self.pos_values = tf.placeholder(tf.float32, shape=[None], name='pos_values')
-        self.pos_shape = tf.placeholder(tf.int64, shape=[2], name='pos_shape')
+        self.pos_indices = tf.compat.v1.placeholder(tf.int64, shape=[None, 2], name='pos_indices')
+        self.pos_values = tf.compat.v1.placeholder(tf.float32, shape=[None], name='pos_values')
+        self.pos_shape = tf.compat.v1.placeholder(tf.int64, shape=[2], name='pos_shape')
 
-        self.neg_indices = tf.placeholder(tf.int64, shape=[None, 2], name='neg_indices')
-        self.neg_values = tf.placeholder(tf.float32, shape=[None], name='neg_values')
-        self.neg_shape = tf.placeholder(tf.int64, shape=[2], name='neg_shape')
+        self.neg_indices = tf.compat.v1.placeholder(tf.int64, shape=[None, 2], name='neg_indices')
+        self.neg_values = tf.compat.v1.placeholder(tf.float32, shape=[None], name='neg_values')
+        self.neg_shape = tf.compat.v1.placeholder(tf.int64, shape=[2], name='neg_shape')
 
-        self.mess_dropout = tf.placeholder(tf.float32, shape=[None], name='mess_dropout')
+        self.mess_dropout = tf.compat.v1.placeholder(tf.float32, shape=[None], name='mess_dropout')
 
         # Input positive features, shape=(batch_size * feature_dim)
         self.sp_pos_feats = tf.SparseTensor(self.pos_indices, self.pos_values, self.pos_shape)
@@ -72,7 +73,8 @@ class NFM(object):
 
     def _build_weights(self):
         all_weights = dict()
-        initializer = tf.contrib.layers.xavier_initializer()
+        #initializer = tf.contrib.layers.xavier_initializer()
+        initializer = tf2.initializers.GlorotUniform() 
 
         all_weights['var_linear'] = tf.Variable(initializer([self.n_features, 1]), name='var_linear')
 
